@@ -1,5 +1,9 @@
 import {displayElement, hideElement} from "../../dom-utils";
 
+/**
+ * It handles switches between different kinds of product cards and controls,
+ * e.g. simple displaying of a card, editor mode, etc.
+ */
 export class Controls extends HTMLElement {
     /**
      * @public {Viewer}
@@ -50,7 +54,7 @@ export class Controls extends HTMLElement {
         hideElement(this.form);
         displayElement(this.editor);
 
-        console.log(this.editor, product) // TODO: prefill data rows
+        this.editor.fill(product);
 
         return this;
     }

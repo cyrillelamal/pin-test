@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
         $data = parent::toArray($request);
 
         $data['status'] = trans('status.' . $product->status->value);
+        $data['status_value'] = $product->status->value;
 
         return $data;
     }

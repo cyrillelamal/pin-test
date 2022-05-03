@@ -6,8 +6,23 @@ import {shutUpEvent} from "../../dom-utils";
 
 export class Data {
     /**
-     * You have to activate the element via the method handle.
-     *
+     * @private {HTMLElement}
+     */
+    _moreDataButton;
+
+    /**
+     * Place where new rows are appended.
+     * @private {HTMLElement}
+     */
+    _rowContainer;
+
+    /**
+     * The basic row copied every time you add a new one.
+     * @private {HTMLElement}
+     */
+    _rowTemplate;
+
+    /**
      * @param {HTMLElement} container data field container.
      * Each container must provide three components:
      * 1. ".js-container": the place where new attributes are appended.
@@ -17,25 +32,12 @@ export class Data {
     constructor(container) {
         this._moreDataButton = container.querySelector('.js-more');
         this._rowContainer = container.querySelector('.js-container');
-
         this._rowTemplate = container.querySelector('.js-row-template');
-    }
 
-    /**
-     * Activate the element.
-     */
-    handle() {
-        this._moreDataButton.addEventListener('click', this.addEmptyRow);
-
-        // TODO: prefill row
-
-        return this;
-    }
-
-    addEmptyRow = (evt = undefined) => {
-        shutUpEvent(evt);
-
-        return this.addRow();
+        this._moreDataButton.addEventListener('click', (evt) => {
+            shutUpEvent(evt);
+            this.addRow();
+        });
     }
 
     addRow(key = '', value = '') {
@@ -70,6 +72,10 @@ export class Data {
         return data;
     }
 
+    /**
+     * Remove all rows.
+     * @return {Data}
+     */
     reset() {
         this._rowContainer.querySelectorAll('.js-row').forEach(row => row.remove());
 

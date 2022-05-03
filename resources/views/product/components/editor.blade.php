@@ -14,6 +14,7 @@
         @include('product.components.fields.article')
         @include('product.components.fields.name')
         @include('product.components.fields.status')
-        <button type="submit">{{ __('product.save') }}</button>
+        @include('product.components.fields.data')
+        <button type="submit" class="rounded-md p-2 px-8 bg-sky-400 text-white">{{ __('product.save') }}</button>
     </div>
 </product-editor>

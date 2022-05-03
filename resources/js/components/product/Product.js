@@ -5,11 +5,21 @@ export class Product {
     id = null;
     article = '';
     name = '';
+    /**
+     * Status displayed to the user.
+     * @type {string}
+     */
     status = '';
     data = {};
 
-    static deserialize(json = '{}') {
-        return new this(JSON.parse(json));
+    /**
+     * Status used as select value.
+     * @type {string}
+     */
+    status_value = 'available';
+
+    static deserialize(json = '{}', attributes = {}) {
+        return new this(Object.assign(JSON.parse(json), attributes));
     }
 
     constructor(attributes = {}) {

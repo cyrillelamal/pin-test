@@ -4,6 +4,19 @@ export function shutUpEvent(evt) {
 }
 
 /**
+ * Provide the function as callback receiving events.
+ * It stops event propagation and default behavior and executes your callback.
+ * @param {Function} f
+ * @return {function(*): *}
+ */
+export function shutUpEventAnd(f) {
+    return (evt) => {
+        shutUpEvent(evt);
+        return f();
+    }
+}
+
+/**
  * Make an HTML element visible in DOM.
  * @param {HTMLElement} element
  * @param {String} hidden class indicating hidden elements.
