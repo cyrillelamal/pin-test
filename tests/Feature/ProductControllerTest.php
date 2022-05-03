@@ -2,9 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Jobs\NotifyAboutNewProduct;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\ProductCreated;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -167,6 +171,42 @@ class ProductControllerTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function when_a_new_product_is_created_the_notification_about_this_is_sent()
+    {
+        Notification::fake();
+
+        $this->postJson(self::STORE, $this->getNewProductData());
+
+        Notification::assertTimesSent(1, ProductCreated::class);
+    }
+
+    /**
+     * @test
+     */
+    public function when_a_new_product_is_created_the_notification_about_this_is_sent_to_the_specified_user()
+    {
+        Notification::fake();
+
+        $this->postJson(self::STORE, $this->getNewProductData());
+
+        Notification::assertSentTo($this->getNotifiableUser(), ProductCreated::class);
+    }
+
+    /**
+     * @test
+     */
+    public function notifications_about_new_products_are_dispatched_through_jobs()
+    {
+        Bus::fake();
+
+        $this->postJson(self::STORE, $this->getNewProductData());
+
+        Bus::assertDispatched(NotifyAboutNewProduct::class);
+    }
+
+    /**
      * @return iterable<string, bool> the article itself and the marker either it's valid.
      */
     public function articles(): iterable
@@ -182,5 +222,10 @@ class ProductControllerTest extends TestCase
     public function getNewProductData($attributes = ['status' => 'available']): array
     {
         return Product::factory()->make($attributes)->toArray();
+    }
+
+    public function getNotifiableUser(): User
+    {
+        return new User(['email' => config('products.email')]);
     }
 }
