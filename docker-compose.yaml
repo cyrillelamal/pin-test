@@ -1,0 +1,36 @@
+version: '3.0'
+services:
+  php: # The application
+    build:
+      context: ./
+      dockerfile: ./docker-compose/php/Dockerfile
+    volumes:
+      - app:/var/www/pin-test:rw
+    depends_on:
+      - db
+    user: www-data
+  db:
+    image: postgres:13-alpine3.15
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_USER: ${POSTGRES_USER:-laravel}
+      POSTGRES_DB: ${POSTGRES_DB:-pin-test}
+  nginx:
+    image: nginx:1.8.1-alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./docker-compose/nginx:/etc/nginx/conf.d:ro
+      - ./storage/logs/nginx:/var/log/nginx:rw
+      - app:/var/www/pin-test:ro
+    depends_on:
+      - php
+volumes:
+  # If you're deploying a new version, you must drop the actual volume; otherwise there will be no changes.
+  # FIXME: use bind volumes
+  app: { }
+  db_data: { }
