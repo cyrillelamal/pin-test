@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 
 /**
  * @property int|null $id
@@ -33,6 +34,11 @@ class Product extends Model
         'status',
         'data',
     ];
+
+    public function scopeAvailable(Builder $query): Builder
+    {
+        return $query->where('status', Status::AVAILABLE);
+    }
 
     public function status(): Attribute
     {
