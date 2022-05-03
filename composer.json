@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "cyrillelamal/pin-test",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Тестовое задание для PIN.",
+    "keywords": ["PIN", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
