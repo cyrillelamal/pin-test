@@ -2,18 +2,26 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class ProductResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        $product = $this->resource;
+
+        if (!($product instanceof Product)) {
+            Log::error('Unexpected resource model', ['expected' => Product::class, 'got' => $product]);
+            throw new RuntimeException('Unexpected resource model');
+        }
+
+        $data = parent::toArray($request);
+
+        $data['status'] = trans('status.' . $product->status->value);
+
+        return $data;
     }
 }
