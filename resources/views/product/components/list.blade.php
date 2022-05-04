@@ -5,7 +5,7 @@
      * @var LengthAwarePaginator|Product[] $products
      */
 @endphp
-<table class="bg-gray-100 text-sm">
+<table class="text-sm">
     <thead class="text-gray-700 uppercase border-b-2">
     <tr>
         <td class="p-4">{{ __('product.article') }}</td>

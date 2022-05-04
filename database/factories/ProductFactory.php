@@ -13,7 +13,7 @@ class ProductFactory extends Factory
             'article' => $this->faker->unique()->regexify('[a-zA-Z0-9]{6,18}'),
             'name' => $this->faker->words(rand(5, 8), true),
             'status' => $this->faker->randomElement(Status::cases()),
-            'data' => ['цвет' => $this->faker->word(), 'рвзмер' => $this->faker->word(), 'вкус' => $this->faker->word()],
+            'data' => ['цвет' => $this->faker->word(), 'размер' => $this->faker->word(), 'вкус' => $this->faker->word()],
         ];
     }
 }

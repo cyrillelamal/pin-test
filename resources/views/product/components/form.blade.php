@@ -1,6 +1,6 @@
 {{-- Rather form controls: form and btton --}}
 <new-product-form class="flex flex-col">
-    <form action="{{ route('products.store') }}" class="flex flex-col bg-sky-900 p-4">
+    <form action="{{ route('products.store') }}" class="flex flex-col bg-[#353F52] p-4">
         <div class="flex flex-row justify-between items-center">
             <h3 class="text-white text-xl font-bold">{{ __('product.new') }}</h3>
             <div class="flex flex-row items-center">

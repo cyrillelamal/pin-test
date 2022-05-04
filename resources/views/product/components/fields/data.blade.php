@@ -5,7 +5,7 @@
 
     <div class="js-container flex flex-col w-4/5">{{-- Append data rows here --}}</div>
 
-    <div class="mt-6 text-blue-200">
+    <div class="mt-6 text-[#00A5D9]">
         <a href="#" class="js-more underline underline-offset-4 decoration-dashed">{{ __('product.more') }}</a>
     </div>
 

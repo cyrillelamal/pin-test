@@ -7,8 +7,8 @@
 @endphp
 @extends('base')
 @section('main')
-    <section class="flex flex-row min-h-screen bg-gray-100 text-base">
-        <div class="bg-sky-900">@include('product.components.sidebar')</div>
+    <section class="flex flex-row min-h-screen bg-[#F1F6FB] text-base">
+        <div class="bg-[#353F52]">@include('product.components.sidebar')</div>
         <div class="flex flex-col w-full">
             <div>@include('product.components.navbar')</div>
             <div class="grid grid-cols-2 grid-rows-1">

@@ -1,10 +1,10 @@
-<product-viewer class="flex flex-col bg-sky-900">
+<product-viewer class="flex flex-col bg-[#353F52]">
     <div class="flex flex-row justify-between items-center p-4">
         <h3 class="js-product-name text-white text-xl">{{-- product.name --}}</h3>
         <div class="flex flex-row items-center">
             <div class="text-white text-xs">
-                <button class="js-edit bg-black p-1">{{ __('product.edit') }}</button>
-                <button class="js-destroy bg-black p-1">{{ __('product.destroy') }}</button>
+                <button class="js-edit bg-[#202531] p-1">{{ __('product.edit') }}</button>
+                <button class="js-destroy bg-[#202531] p-1">{{ __('product.destroy') }}</button>
             </div>
             <div class="ml-4">
                 <button class="js-hide text-gray-200 text-2xl">{{ __('product.hide') }}</button>

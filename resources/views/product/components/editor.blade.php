@@ -1,4 +1,4 @@
-<product-editor class="flex flex-col bg-sky-900 p-4">
+<product-editor class="flex flex-col bg-[#353F52] p-4">
     <div class="flex flex-row justify-between items-center">
         <h3 class="text-white text-xl">
             {{ __('product.editing') }}: <span class="js-product-name">{{-- product.name --}}</span>
