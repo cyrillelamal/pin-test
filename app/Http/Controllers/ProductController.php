@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
+use OpenApi\Attributes as OA;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,14 @@ class ProductController extends Controller
         ]);
     }
 
+    #[OA\Post(
+        path: '/products',
+        description: 'Add new product',
+        requestBody: new OA\RequestBody(content: new OA\JsonContent(ref: '#/components/schemas/StoreProductRequest')),
+        responses: [
+            new OA\Response(response: 201, description: 'Product added', content: new OA\JsonContent(ref: '#/components/schemas/ProductResource')),
+        ],
+    )]
     public function store(StoreProductRequest $request): ProductResource
     {
         // FIXME: what to do with an empty set of attributes (data)?
@@ -30,6 +39,16 @@ class ProductController extends Controller
         return new ProductResource($product); // 201 automatically
     }
 
+    #[OA\Get(
+        path: '/products/{id}',
+        description: 'Read product',
+        parameters: [
+            new OA\Parameter(name: 'id', description: 'Product id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Product', content: new OA\JsonContent(ref: '#/components/schemas/ProductResource')),
+        ],
+    )]
     public function show(Product $product): ProductResource
     {
         return new ProductResource($product);
@@ -38,6 +57,17 @@ class ProductController extends Controller
     /**
      * @throws AuthorizationException
      */
+    #[OA\Put(
+        path: '/products/{id}',
+        description: 'Read product',
+        requestBody: new OA\RequestBody(content: new OA\JsonContent(ref: '#/components/schemas/UpdateProductRequest')),
+        parameters: [
+            new OA\Parameter(name: 'id', description: 'Product id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Updated product', content: new OA\JsonContent(ref: '#/components/schemas/ProductResource')),
+        ],
+    )]
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
         $this->authorize('update', $product);
@@ -47,6 +77,16 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
+    #[OA\Delete(
+        path: '/products/{id}',
+        description: 'Delete product',
+        parameters: [
+            new OA\Parameter(name: 'id', description: 'Product id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
+        ],
+        responses: [
+            new OA\Response(response: 204, description: 'Product was removed softly'),
+        ],
+    )]
     public function destroy(Product $product): Response
     {
         $product->delete();
